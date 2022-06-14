@@ -14,7 +14,7 @@ function searchResults(event) {
   xhr.addEventListener('load', function () {
     // console.log(xhr.status);
     // console.log(xhr.response);
-    // $response = xhr.response;
+    // $response = xhr.response
     if (xhr.status === 200) {
       for (let i = 0; i < this.response.data[0].card_images.length; i++) {
         var div = document.createElement('div');
