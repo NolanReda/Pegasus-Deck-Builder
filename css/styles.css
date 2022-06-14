@@ -1,7 +1,3 @@
-body {
-  font-family: "Della Respira", serif;
-}
-
 header {
   width: 100%;
   height: 70px;
@@ -17,10 +13,17 @@ header {
 
 .row {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .column-half {
-  width: 100%;
+  width: 50%;
+}
+
+.column-fourth {
+  width: 25%;
+  padding: 0 65px;
+  margin: 40px 0;
 }
 
 .logo {
@@ -58,6 +61,15 @@ header {
   top: 14rem;
 }
 
+.result-list {
+  width: 100%;
+}
+
+.none {
+  width: 100%;
+  justify-content: center;
+}
+
 .search {
   margin-top: 4rem;
 }
@@ -74,4 +86,40 @@ header {
   color: #f00;
   border-radius: 3px;
   background-color: white;
+}
+
+.search-button:active {
+  background-color: #dfd8d8;
+}
+
+.card {
+  height: 250px;
+}
+
+.card-name {
+  margin: 0;
+}
+
+@media only screen and (min-width: 450px) and (max-width: 600px) {
+  .container {
+    max-width: 100vw;
+    height: 100vh;
+  }
+
+  .background-logo {
+    width: 100vh;
+  }
+
+  .column-fourth {
+    width: 100%;
+    padding: 0 170.5px;
+  }
+
+  .column-half {
+    width: 100%;
+  }
+
+  .eye {
+    display: none;
+  }
 }
