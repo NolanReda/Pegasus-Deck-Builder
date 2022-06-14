@@ -3,16 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AJAX Project</title>
-  <link rel="icon" href="images/favicon.ico">
+  <title>Pegasus Deck Builder</title>
+  <link rel="icon" href="images/pegasus logo sym.png">
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Della+Respira&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header>
+  <header class="row">
+    <div class="header-l column-half">
+      <div class="row align-center">
+        <img class="logo" src="images/pegasus title white.png" alt="pegasus-deck-builder-logo">
+        <button class="nav-button">Decks</button>
+        <button class="nav-button">Card Search</button>
+      </div>
+    </div>
+    <div class="header-r column-half">
+      <div class="row justify-end">
+        <img class="logo" src="images/pegasus logo sym.png" alt="pegasus-symbol">
+      </div>
+    </div>
   </header>
-  <main>
+  <main class="container">
+    <div class="background row">
+      <img class="background-logo" src="images/pegasus-logo-full.png" alt="background-logo">
+    </div>
+    <div class="row search justify-center">
+      <input id="search-bar" class="search-bar" type="search">
+      <button id="search-button" class="search-button" type="submit">Search</button>
+    </div>
   </main>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>

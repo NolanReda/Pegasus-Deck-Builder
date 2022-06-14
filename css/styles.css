@@ -1,0 +1,77 @@
+body {
+  font-family: "Della Respira", serif;
+}
+
+header {
+  width: 100%;
+  height: 70px;
+  background-color: #f00;
+  box-shadow: 0 5px 15px -2px #000;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+  position: relative;
+}
+
+.row {
+  display: flex;
+}
+
+.column-half {
+  width: 100%;
+}
+
+.logo {
+  height: 65px;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.justify-end {
+  justify-content: end;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.nav-button {
+  border: none;
+  background-color: #f00;
+  color: white;
+  margin: 10px;
+}
+
+.background {
+  justify-content: center;
+}
+
+.background-logo {
+  position: fixed;
+  z-index: -1;
+  width: 800px;
+  opacity: 60%;
+  top: 14rem;
+}
+
+.search {
+  margin-top: 4rem;
+}
+
+.search-bar {
+  width: 17rem;
+  border: solid 1px #000;
+  border-radius: 3px;
+}
+
+.search-button {
+  margin-left: 10px;
+  border: solid 1px #f00;
+  color: #f00;
+  border-radius: 3px;
+  background-color: white;
+}
