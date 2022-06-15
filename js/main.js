@@ -26,6 +26,11 @@ function searchResults(event) {
         img.setAttribute('src', this.response.data[0].card_images[i].image_url);
         img.setAttribute('alt', this.response.data[0].name);
         div.appendChild(img);
+        var add = document.createElement('button');
+        add.setAttribute('id', 'add-button');
+        add.setAttribute('class', 'add-button');
+        add.innerHTML = 'Add card to deck';
+        div.appendChild(add);
         $resultList.appendChild(div);
       }
     } else if (xhr.status === 400) {
