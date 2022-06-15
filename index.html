@@ -31,15 +31,61 @@
   <main class="container">
     <div class="background row">
       <img class="background-logo" src="images/pegasus-logo-full.png" alt="background-logo">
-    </div>
-    <div class="row search justify-center" data-view="search">
-      <div class="row">
-        <form class="search-form">
-          <input id="search-bar" class="search-bar" type="search" required>
-          <button id="search-button" class="search-button" type="submit">Search</button>
-        </form>
+    </div><!--end of header-->
+    <div class="view" data-view="search">
+      <div class="row search justify-center">
+        <div class="row">
+          <form class="search-form">
+            <input id="search-bar" class="search-bar" type="search" required>
+            <button id="search-button" class="search-button" type="submit">Search</button>
+          </form>
+        </div>
+        <div id="search-results" class="row result-list"></div>
       </div>
-      <div id="search-results" class="row result-list"></div>
+    </div><!--end of search view-->
+    <div class="hidden" data-view="details">
+      <div class="row justify-end return">
+        <button id="return-button" class="return-button" type="submit">Return</button>
+      </div>
+      <div class="row detail">
+        <div class="column-third">
+          <img class="detail-img" src="images/card back.png" alt="">
+        </div>
+        <div class="column-two-thirds">
+          <div class="row tb">
+            <div class="top-box">
+              <h2 id="card-name"></h2>
+              <h3 id="card-type"></h3>
+              <p id="card-desc"></p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="column-full bottom-box">
+              <div class="row">
+                <div class="column-half prices">
+                  <div class="row price-row">
+                    <a id="amazon" href=""></a>
+                  </div>
+                  <div class="row price-row">
+                    <a id="card-market" href=""></a>
+                  </div>
+                  <div class="row price-row">
+                    <a id="coolstuff" href=""></a>
+                  </div>
+                </div>
+                <div class="column-half prices">
+                  <div class="row price-row">
+                    <a id="ebay" href=""></a>
+                  </div>
+                  <div class="row price-row">
+                    <a id="tcgplayer" href=""></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </main>
   <script src="js/data.js"></script>

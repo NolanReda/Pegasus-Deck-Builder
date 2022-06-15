@@ -2,6 +2,8 @@ var $searchBar = document.querySelector('#search-bar');
 var $searchButton = document.querySelector('#search-button');
 var $resultList = document.querySelector('#search-results');
 
+var $response = {};
+
 function searchResults(event) {
   $resultList.replaceChildren('');
   data.resultId = 1;
@@ -12,6 +14,7 @@ function searchResults(event) {
   xhr.addEventListener('load', function () {
     // console.log(xhr.status);
     // console.log(xhr.response);
+    $response = xhr.response;
     if (xhr.status === 200) {
       for (let i = 0; i < this.response.data[0].card_images.length; i++) {
         var div = document.createElement('div');
@@ -40,3 +43,50 @@ function searchResults(event) {
 }
 
 $searchButton.addEventListener('click', searchResults);
+
+var $dataView = document.querySelectorAll('[data-view]');
+var $returnButton = document.querySelector('#return-button');
+
+function viewSwap(viewName) {
+  for (let i = 0; i < $dataView.length; i++) {
+    if ($dataView[i].getAttribute('data-view') === viewName) {
+      $dataView[i].className = 'view';
+    } else if ($dataView[i].getAttribute('data-view') !== viewName) {
+      $dataView[i].className = 'hidden';
+    }
+  }
+}
+
+function handleReturn(event) {
+  viewSwap('search');
+}
+$returnButton.addEventListener('click', handleReturn);
+
+var $searchResults = document.querySelector('#search-results');
+
+var $detailImg = document.querySelector('.detail-img');
+var $cardName = document.querySelector('#card-name');
+var $cardType = document.querySelector('#card-type');
+var $cardDesc = document.querySelector('#card-desc');
+var $amazon = document.querySelector('#amazon');
+var $cardMarket = document.querySelector('#card-market');
+var $coolStuff = document.querySelector('#coolstuff');
+var $ebay = document.querySelector('#ebay');
+var $tcgPlayer = document.querySelector('#tcgplayer');
+
+function getDetails(event) {
+  if (event.target.className === 'card') {
+    $detailImg.setAttribute('src', $searchResults.childNodes[event.target.closest('div').getAttribute('data-result-id')].childNodes[0].src);
+    $cardName.textContent = $response.data[0].name;
+    $cardType.textContent = $response.data[0].race + '/' + $response.data[0].type;
+    $cardDesc.textContent = $response.data[0].desc;
+    $amazon.textContent = 'Amazon price: $' + $response.data[0].card_prices[0].amazon_price;
+    $cardMarket.textContent = 'Cardmarket price: $' + $response.data[0].card_prices[0].cardmarket_price;
+    $coolStuff.textContent = 'CoolStuff Inc price: $' + $response.data[0].card_prices[0].coolstuffinc_price;
+    $ebay.textContent = 'Ebay price: $' + $response.data[0].card_prices[0].ebay_price;
+    $tcgPlayer.textContent = 'TCGplayer price: $' + $response.data[0].card_prices[0].tcgplayer_price;
+    viewSwap('details');
+  }
+}
+
+$searchResults.addEventListener('click', getDetails);

@@ -96,8 +96,80 @@ header {
   height: 250px;
 }
 
-.card-name {
-  margin: 0;
+.hidden {
+  display: none;
+}
+
+.return {
+  width: 78.5%;
+  margin-top: 3rem;
+  margin-right: 4rem;
+}
+
+.return-button {
+  height: 30px;
+  width: 60px;
+  margin-left: 10px;
+  border: solid 1px #f00;
+  color: #f00;
+  border-radius: 3px;
+  background-color: white;
+}
+
+.return-button:active {
+  background-color: #dfd8d8;
+}
+
+.detail {
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.column-full {
+  width: 100%;
+}
+
+.column-third {
+  width: 33%;
+  padding-left: 22px;
+}
+
+.column-two-thirds {
+  width: 66%;
+}
+
+.detail-img {
+  height: 545px;
+}
+
+.top-box {
+  border: solid 3px #f00;
+  width: 500px;
+  background-color: white;
+  margin: 0 45px;
+  text-align: center;
+  box-shadow: 0 6px 10px 4px rgba(0, 0, 0, 0.62);
+}
+
+.bottom-box {
+  border: solid 3px #f00;
+  width: 500px;
+  height: 180px;
+  background-color: white;
+  margin: 115px 45px 0;
+  text-align: center;
+  box-shadow: 0 6px 10px 4px rgba(0, 0, 0, 0.62);
+}
+
+a {
+  text-decoration: none;
+  color: black;
+  margin: 12px 25px;
+  font-size: small;
+}
+
+.prices {
+  height: 124px;
 }
 
 @media only screen and (min-width: 450px) and (max-width: 600px) {
@@ -121,5 +193,72 @@ header {
 
   .eye {
     display: none;
+  }
+
+  .detail-img {
+    height: 315px;
+  }
+
+  .column-third {
+    width: 50%;
+    height: 315px;
+    padding-left: 10px;
+  }
+
+  .column-two-thirds {
+    width: 50%;
+  }
+
+  .top-box {
+    width: 230px;
+    margin: 0;
+  }
+
+  .return {
+    width: 100%;
+    margin-right: 0.75rem;
+  }
+
+  .return-button {
+    margin-right: 10px;
+  }
+
+  .bottom-box {
+    width: 400px;
+    position: relative;
+    margin: 115px -80px;
+    right: 8rem;
+  }
+
+  a {
+    margin: 15px 25px;
+  }
+
+  .prices {
+    width: 50%;
+  }
+}
+
+@media only screen and (min-width: 600px) and (max-width: 950px) {
+  .detail-img {
+    height: 400px;
+  }
+
+  .top-box {
+    margin: 0 60px;
+  }
+
+  .return {
+    width: 100%;
+    margin-right: 3rem;
+  }
+
+  .return-button {
+    margin-right: 4.5rem;
+  }
+
+  .bottom-box {
+    margin: 20px 60px;
+    height: 130px;
   }
 }
