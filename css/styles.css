@@ -116,6 +116,10 @@ header {
   background-color: white;
 }
 
+.return-button:active {
+  background-color: #dfd8d8;
+}
+
 .detail {
   width: 100%;
   margin-top: 2rem;
@@ -144,6 +148,7 @@ header {
   background-color: white;
   margin: 0 45px;
   text-align: center;
+  box-shadow: 0 6px 10px 4px rgba(0, 0, 0, 0.62);
 }
 
 .bottom-box {
@@ -153,6 +158,7 @@ header {
   background-color: white;
   margin: 115px 45px 0;
   text-align: center;
+  box-shadow: 0 6px 10px 4px rgba(0, 0, 0, 0.62);
 }
 
 a {
@@ -232,6 +238,10 @@ a {
   .return {
     width: 100%;
     margin-right: 3rem;
+  }
+
+  .return-button {
+    margin-right: 4.5rem;
   }
 
   .bottom-box {
