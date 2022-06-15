@@ -32,7 +32,7 @@
     <div class="background row">
       <img class="background-logo" src="images/pegasus-logo-full.png" alt="background-logo">
     </div>
-    <div class="row search justify-center" data-view="search">
+    <div class="hidden row search justify-center" data-view="search">
       <div class="row">
         <form class="search-form">
           <input id="search-bar" class="search-bar" type="search" required>
@@ -40,6 +40,42 @@
         </form>
       </div>
       <div id="search-results" class="row result-list"></div>
+    </div><!--end of search view-->
+    <div class="row" data-view="details">
+      <div class="row justify-end return">
+        <button id="return-button" class="return-button" type="submit">Return</button>
+      </div>
+      <div class="row detail">
+        <div class="column-third">
+          <img class="detail-img" src="images/card back.png" alt="">
+        </div>
+        <div class="column-two-thirds">
+          <div class="row tb">
+            <div class="top-box">
+              <h2 id="card-name">Blue-Eyes White Dragon</h2>
+              <h3 id="card-type">Spellcaster/Effect Monster</h3>
+              <p id="card-desc">Once per turn: You can toss a coin and call it. If you call it right, destroy all monsters your opponent controls. If
+              you call it wrong, destroy as many monsters you control as possible, and if you do, take damage equal to half the total
+              ATK those destroyed monsters had while face-up on the field.</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="column-full bottom-box">
+              <div class="row">
+                <div class="column-half prices">
+                  <a href="">Amazon price: $7.87</a>
+                  <a href="">Cardmarket price: $0.10</a>
+                  <a href="">CoolStuff Inc price: $6.99</a>
+                </div>
+                <div class="column-half prices">
+                  <a href="">Ebay price: $2.94</a>
+                  <a href="">TCGplayer price: $0.64</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </main>
   <script src="js/data.js"></script>

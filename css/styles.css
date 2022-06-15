@@ -96,6 +96,75 @@ header {
   height: 250px;
 }
 
+.hidden {
+  display: none;
+}
+
+.return {
+  width: 78.5%;
+  margin-top: 3rem;
+  margin-right: 4rem;
+}
+
+.return-button {
+  height: 30px;
+  width: 60px;
+  margin-left: 10px;
+  border: solid 1px #f00;
+  color: #f00;
+  border-radius: 3px;
+  background-color: white;
+}
+
+.detail {
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.column-full {
+  width: 100%;
+}
+
+.column-third {
+  width: 33%;
+  padding-left: 22px;
+}
+
+.column-two-thirds {
+  width: 66%;
+}
+
+.detail-img {
+  height: 545px;
+}
+
+.top-box {
+  border: solid 3px #f00;
+  width: 500px;
+  background-color: white;
+  margin: 0 45px;
+  text-align: center;
+}
+
+.bottom-box {
+  border: solid 3px #f00;
+  width: 500px;
+  height: 180px;
+  background-color: white;
+  margin: 115px 45px 0;
+  text-align: center;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+  margin: 25px;
+}
+
+.prices {
+  height: 124px;
+}
+
 @media only screen and (min-width: 450px) and (max-width: 600px) {
   .container {
     max-width: 100vw;
@@ -117,5 +186,56 @@ header {
 
   .eye {
     display: none;
+  }
+
+  .detail-img {
+    height: 315px;
+  }
+
+  .column-third {
+    width: 50%;
+    height: 315px;
+    padding-left: 10px;
+  }
+
+  .column-two-thirds {
+    width: 50%;
+  }
+
+  .top-box {
+    width: 230px;
+    margin: 0;
+  }
+
+  .return {
+    width: 100%;
+    margin-right: 0.75rem;
+  }
+
+  .bottom-box {
+    width: 400px;
+    position: relative;
+    margin: 0;
+    right: 0.55rem;
+  }
+}
+
+@media only screen and (min-width: 600px) and (max-width: 950px) {
+  .detail-img {
+    height: 400px;
+  }
+
+  .top-box {
+    margin: 0 60px;
+  }
+
+  .return {
+    width: 100%;
+    margin-right: 3rem;
+  }
+
+  .bottom-box {
+    margin: 20px 60px;
+    height: 130px;
   }
 }
