@@ -103,8 +103,20 @@ function addCard(event) {
     data.decks.deck1.cards[data.decks.deck1.nextCardId].imageUrl = $searchResults.childNodes[event.target.closest('div').getAttribute('data-result-id')].childNodes[0].src;
     data.decks.deck1.cards[data.decks.deck1.nextCardId].cardId = data.decks.deck1.nextCardId;
     data.decks.deck1.nextCardId++;
-    // console.log('cards:', data.decks.deck1);
   }
 }
 
 $searchResults.addEventListener('click', addCard);
+
+var $modal = document.querySelector('#modal');
+var $ok = document.querySelector('.ok');
+function open(event) {
+  if (event.target.getAttribute('id') === 'add-button') {
+    $modal.showModal();
+  }
+}
+$searchResults.addEventListener('click', open);
+function close(event) {
+  $modal.close();
+}
+$ok.addEventListener('click', close);
