@@ -95,3 +95,16 @@ function getDetails(event) {
 }
 
 $searchResults.addEventListener('click', getDetails);
+
+function addCard(event) {
+  if (event.target.getAttribute('id') === 'add-button') {
+    // console.log(event.target);
+    data.decks.deck1.cards.push($response);
+    data.decks.deck1.cards[data.decks.deck1.nextCardId].imageUrl = $searchResults.childNodes[event.target.closest('div').getAttribute('data-result-id')].childNodes[0].src;
+    data.decks.deck1.cards[data.decks.deck1.nextCardId].cardId = data.decks.deck1.nextCardId;
+    data.decks.deck1.nextCardId++;
+    // console.log('cards:', data.decks.deck1);
+  }
+}
+
+$searchResults.addEventListener('click', addCard);
