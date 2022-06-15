@@ -164,7 +164,8 @@ header {
 a {
   text-decoration: none;
   color: black;
-  margin: 25px;
+  margin: 12px 25px;
+  font-size: small;
 }
 
 .prices {
@@ -218,11 +219,23 @@ a {
     margin-right: 0.75rem;
   }
 
+  .return-button {
+    margin-right: 10px;
+  }
+
   .bottom-box {
     width: 400px;
     position: relative;
-    margin: 0;
-    right: 0.55rem;
+    margin: 115px -80px;
+    right: 8rem;
+  }
+
+  a {
+    margin: 15px 25px;
+  }
+
+  .prices {
+    width: 50%;
   }
 }
 
