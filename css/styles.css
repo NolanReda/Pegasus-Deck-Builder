@@ -183,8 +183,23 @@ a {
   width: 185px;
 }
 
+.new-deck {
+  font-size: larger;
+  border: none;
+  background-color: rgb(255, 254, 254, 0);
+  padding-right: 25px;
+}
+
+h1 {
+  margin-left: 25px;
+}
+
 dialog::backdrop {
   background: rgb(0 0 0 / 80%);
+}
+
+.height100 {
+  height: 100%;
 }
 
 @media only screen and (min-width: 450px) and (max-width: 600px) {

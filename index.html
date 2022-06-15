@@ -18,8 +18,8 @@
     <div class="header-l column-half">
       <div class="row align-center">
         <img class="logo white" src="images/pegasus title white.png" alt="pegasus-deck-builder-logo">
-        <button class="nav-button">Decks</button>
-        <button class="nav-button">Card Search</button>
+        <button id="nav-decks" class="nav-button" type="button">Decks</button>
+        <button id="nav-card-search" class="nav-button" type="button">Card Search</button>
       </div>
     </div>
     <div class="header-r column-half">
@@ -32,12 +32,12 @@
     <div class="background row">
       <img class="background-logo" src="images/pegasus-logo-full.png" alt="background-logo">
     </div><!--end of header-->
-    <div class="view" data-view="search">
+    <div class="hidden" data-view="search">
       <div class="row search justify-center">
         <div class="row">
           <form class="search-form">
             <input id="search-bar" class="search-bar" type="search" required>
-            <button id="search-button" class="search-button" type="submit">Search</button>
+            <button id="search-button" class="search-button" type="button">Search</button>
           </form>
         </div>
         <div id="search-results" class="row result-list"></div>
@@ -46,13 +46,13 @@
             <form id="confirm-add" method="dialog" class="modal-form">
               <div class="row justify-center">
                 <p>Card Added</p>
-              </div><!--modal-->
+              </div>
               <div class="row justify-center">
                 <input class="ok" type="button" value="OK">
               </div>
             </form>
           </dialog>
-        </div>
+        </div><!--modal-->
       </div>
     </div><!--end of search view-->
     <div class="hidden" data-view="details">
@@ -95,6 +95,20 @@
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+    </div><!--end of detail view-->
+    <div class="view" data-view="decks">
+      <div class="row decks-head">
+        <div class="column-half">
+          <div class="row">
+            <h1>Decks</h1>
+          </div>
+        </div>
+        <div class="column-half">
+          <div class="row justify-end height100">
+            <button id="new-deck" class="new-deck" type="button">New Deck +</button>
           </div>
         </div>
       </div>

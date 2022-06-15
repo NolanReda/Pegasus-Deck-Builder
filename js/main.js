@@ -7,7 +7,6 @@ var $response = {};
 function searchResults(event) {
   $resultList.replaceChildren('');
   data.resultId = 1;
-  event.preventDefault();
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://db.ygoprodeck.com/api/v7/cardinfo.php?name=' + $searchBar.value);
   xhr.responseType = 'json';
@@ -62,6 +61,19 @@ function viewSwap(viewName) {
   }
 }
 
+var $navDecks = document.querySelector('#nav-decks');
+var $navSearch = document.querySelector('#nav-card-search');
+
+function navDecks(event) {
+  viewSwap('decks');
+}
+$navDecks.addEventListener('click', navDecks);
+
+function navSearch(event) {
+  viewSwap('search');
+}
+$navSearch.addEventListener('click', navSearch);
+
 function handleReturn(event) {
   viewSwap('search');
 }
@@ -110,6 +122,7 @@ $searchResults.addEventListener('click', addCard);
 
 var $modal = document.querySelector('#modal');
 var $ok = document.querySelector('.ok');
+
 function open(event) {
   if (event.target.getAttribute('id') === 'add-button') {
     $modal.showModal();
