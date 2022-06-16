@@ -123,12 +123,15 @@ $searchResults.addEventListener('click', getDetails);
 
 function addCard(event) {
   if (event.target.getAttribute('id') === 'add-button') {
-    // console.log(event.target);
     for (var deck in data.decks) {
-      data.decks[deck].cards.push($response);
-      data.decks.deck1.cards[data.decks.deck1.nextCardId].imageUrl = $searchResults.childNodes[event.target.closest('div').getAttribute('data-result-id')].childNodes[0].src;
-      data.decks.deck1.cards[data.decks.deck1.nextCardId].cardId = data.decks.deck1.nextCardId;
-      data.decks.deck1.nextCardId++;
+      if (deck === event.target.nextElementSibling.value) {
+        var nextCard = {};
+        nextCard.data = $response.data;
+        nextCard.cardId = data.decks[deck].nextCardId;
+        nextCard.imageUrl = $searchResults.childNodes[event.target.closest('div').getAttribute('data-result-id')].childNodes[0].src;
+        data.decks[deck].cards.push(nextCard);
+        data.decks[deck].nextCardId++;
+      }
     }
   }
 }
@@ -162,7 +165,7 @@ var $createDeck = document.querySelector('#create-deck');
 function createNewDeck(event) {
   data.decks[$deckName.value] = {
     cards: [],
-    nextCardId: 1
+    nextCardId: 0
   };
 }
 
