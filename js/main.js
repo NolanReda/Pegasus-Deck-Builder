@@ -63,17 +63,15 @@ function viewSwap(viewName) {
 
 var $navDecks = document.querySelector('#nav-decks');
 var $navSearch = document.querySelector('#nav-card-search');
-
 function navDecks(event) {
   viewSwap('decks');
 }
 $navDecks.addEventListener('click', navDecks);
-
 function navSearch(event) {
+  $searchBar.value = '';
   viewSwap('search');
 }
 $navSearch.addEventListener('click', navSearch);
-
 function handleReturn(event) {
   viewSwap('search');
 }
@@ -133,3 +131,40 @@ function close(event) {
   $modal.close();
 }
 $ok.addEventListener('click', close);
+
+var $deckName = document.querySelector('#deck-name');
+var $newDeck = document.querySelector('#new-deck');
+function newDeckView(event) {
+  $deckName.value = '';
+  viewSwap('new-deck');
+}
+$newDeck.addEventListener('click', newDeckView);
+
+var $createDeck = document.querySelector('#create-deck');
+
+function createNewDeck(event) {
+  data.decks[$deckName.value] = {
+    cards: [],
+    nextCardId: 1
+  };
+  $deckName.value = '';
+}
+
+$createDeck.addEventListener('click', createNewDeck);
+
+var $deckRows = document.querySelector('#deck-rows');
+
+function loadDecks(event) {
+  for (var deck in data.decks) {
+    var div = document.createElement('div');
+    div.setAttribute('class', 'column-fourth card-wrapper');
+    var img = document.createElement('img');
+    img.setAttribute('class', 'card');
+    img.setAttribute('src', 'images/card-back.png');
+    img.setAttribute('alt', data.deck[deck]);
+    div.appendChild(img);
+    $deckRows.appendChild(div);
+  }
+}
+
+window.addEventListener('DOMContentLoaded', loadDecks);

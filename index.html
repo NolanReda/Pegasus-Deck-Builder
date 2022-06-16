@@ -32,7 +32,7 @@
     <div class="background row">
       <img class="background-logo" src="images/pegasus-logo-full.png" alt="background-logo">
     </div><!--end of header-->
-    <div class="hidden" data-view="search">
+    <div class="view" data-view="search">
       <div class="row search justify-center">
         <div class="row">
           <form class="search-form">
@@ -61,7 +61,7 @@
       </div>
       <div class="row detail">
         <div class="column-third">
-          <img class="detail-img" src="images/card back.png" alt="">
+          <img class="detail-img" src="" alt="">
         </div>
         <div class="column-two-thirds">
           <div class="row tb">
@@ -99,11 +99,11 @@
         </div>
       </div>
     </div><!--end of detail view-->
-    <div class="view" data-view="decks">
+    <div class="hidden" data-view="decks">
       <div class="row decks-head">
         <div class="column-half">
           <div class="row">
-            <h1>Decks</h1>
+            <h1 class="marg-l-25">Decks</h1>
           </div>
         </div>
         <div class="column-half">
@@ -112,7 +112,22 @@
           </div>
         </div>
       </div>
-    </div>
+      <div id="deck-rows" class="row decks-list"></div>
+    </div><!--end of decks view-->
+    <div class="hidden" data-view="new-deck">
+      <div class="row new-deck-h1">
+        <h1 class="marg-l-25">New Deck</h1>
+      </div>
+      <div class="row new-deck-input">
+        <div class="column-full">
+          <div class="row">
+            <label class="marg-l-25" for="deck-name">Deck Name</label>
+          </div>
+        </div>
+        <input class="marg-l-25" type="text" name="deck-name" id="deck-name" size="40" required>
+        <button id="create-deck" class="search-button">Create Deck</button>
+      </div>
+    </div><!--end of new deck view-->
   </main>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
