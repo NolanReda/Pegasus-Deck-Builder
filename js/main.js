@@ -94,6 +94,8 @@ $returnButton.addEventListener('click', handleReturn);
 
 var $searchResults = document.querySelector('#search-results');
 
+var $deckDisplay = document.querySelector('#deck-display');
+
 var $detailImg = document.querySelector('.detail-img');
 var $cardName = document.querySelector('#card-name');
 var $cardType = document.querySelector('#card-type');
@@ -105,21 +107,42 @@ var $ebay = document.querySelector('#ebay');
 var $tcgPlayer = document.querySelector('#tcgplayer');
 
 function getDetails(event) {
-  if (event.target.className === 'card') {
-    $detailImg.setAttribute('src', $searchResults.childNodes[event.target.closest('div').getAttribute('data-result-id')].childNodes[0].src);
-    $cardName.textContent = $response.data[0].name;
-    $cardType.textContent = $response.data[0].race + '/' + $response.data[0].type;
-    $cardDesc.textContent = $response.data[0].desc;
-    $amazon.textContent = 'Amazon price: $' + $response.data[0].card_prices[0].amazon_price;
-    $cardMarket.textContent = 'Cardmarket price: $' + $response.data[0].card_prices[0].cardmarket_price;
-    $coolStuff.textContent = 'CoolStuff Inc price: $' + $response.data[0].card_prices[0].coolstuffinc_price;
-    $ebay.textContent = 'Ebay price: $' + $response.data[0].card_prices[0].ebay_price;
-    $tcgPlayer.textContent = 'TCGplayer price: $' + $response.data[0].card_prices[0].tcgplayer_price;
-    viewSwap('details');
+  // console.log(event.target.closest('div[data-view]').attributes[1].value);
+  if (event.target.closest('div[data-view]').attributes[1].value === 'search') {
+    if (event.target.className === 'card') {
+      $detailImg.setAttribute('src', $searchResults.childNodes[event.target.closest('div').getAttribute('data-result-id')].childNodes[0].src);
+      $cardName.textContent = $response.data[0].name;
+      $cardType.textContent = $response.data[0].race + '/' + $response.data[0].type;
+      $cardDesc.textContent = $response.data[0].desc;
+      $amazon.textContent = 'Amazon price: $' + $response.data[0].card_prices[0].amazon_price;
+      $cardMarket.textContent = 'Cardmarket price: $' + $response.data[0].card_prices[0].cardmarket_price;
+      $coolStuff.textContent = 'CoolStuff Inc price: $' + $response.data[0].card_prices[0].coolstuffinc_price;
+      $ebay.textContent = 'Ebay price: $' + $response.data[0].card_prices[0].ebay_price;
+      $tcgPlayer.textContent = 'TCGplayer price: $' + $response.data[0].card_prices[0].tcgplayer_price;
+      viewSwap('details');
+    }
+  } else if (event.target.closest('div[data-view]').attributes[1].value === 'deck-display') {
+    if (event.target.className === 'card') {
+      $detailImg.setAttribute('src', event.target.src);
+      for (let i = 0; i < currentDeck.cards.length; i++) {
+        if (currentDeck.cards[i].cardId.toString() === event.target.closest('div[data-card-id]').attributes[1].value) {
+          $cardName.textContent = currentDeck.cards[i].data[0].name;
+          $cardType.textContent = currentDeck.cards[i].data[0].race + currentDeck.cards[i].data[0].type;
+          $cardDesc.textContent = currentDeck.cards[i].data[0].desc;
+          $amazon.textContent = 'Amazon price: $' + currentDeck.cards[i].data[0].card_prices[0].amazon_price;
+          $cardMarket.textContent = 'Cardmarket price: $' + currentDeck.cards[i].data[0].card_prices[0].cardmarket_price;
+          $coolStuff.textContent = 'CoolStuff Inc price: $' + currentDeck.cards[i].data[0].card_prices[0].coolstuffinc_price;
+          $ebay.textContent = 'Ebay price: $' + currentDeck.cards[i].data[0].card_prices[0].ebay_price;
+          $tcgPlayer.textContent = 'TCGplayer price: $' + currentDeck.cards[i].data[0].card_prices[0].tcgplayer_price;
+          viewSwap('details');
+        }
+      }
+    }
   }
 }
 
 $searchResults.addEventListener('click', getDetails);
+$deckDisplay.addEventListener('click', getDetails);
 
 function addCard(event) {
   if (event.target.getAttribute('id') === 'add-button') {
@@ -214,20 +237,20 @@ function loadDecks(event) {
 window.addEventListener('DOMContentLoaded', loadDecks);
 $createDeck.addEventListener('click', loadDecks);
 
-var $deckDisplay = document.querySelector('#deck-display');
+var currentDeck = null;
 
 function displayDeck(event) {
   $deckDisplay.replaceChildren('');
   if (event.target.getAttribute('class') === 'deck') {
-    var deck = data.decks[event.target.previousElementSibling.innerHTML];
-    for (let i = 0; i < deck.cards.length; i++) {
+    currentDeck = data.decks[event.target.previousElementSibling.innerHTML];
+    for (let i = 0; i < currentDeck.cards.length; i++) {
       var div = document.createElement('div');
       div.setAttribute('class', 'column-fourth');
-      div.setAttribute('data-card-id', deck.cards[i].cardId);
+      div.setAttribute('data-card-id', currentDeck.cards[i].cardId);
       var img = document.createElement('img');
       img.setAttribute('class', 'card');
-      img.setAttribute('src', deck.cards[i].imageUrl);
-      img.setAttribute('alt', deck.cards[i].data[0].name);
+      img.setAttribute('src', currentDeck.cards[i].imageUrl);
+      img.setAttribute('alt', currentDeck.cards[i].data[0].name);
       div.appendChild(img);
       $deckDisplay.appendChild(div);
     }
@@ -236,3 +259,9 @@ function displayDeck(event) {
 }
 
 $deckRows.addEventListener('click', displayDeck);
+
+var returnToDecksButton = document.querySelector('#return-to-decks-button');
+function returnToDecks(event) {
+  viewSwap('deck-display');
+}
+returnToDecksButton.addEventListener('click', returnToDecks);
