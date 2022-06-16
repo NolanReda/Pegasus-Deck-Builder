@@ -173,7 +173,7 @@ a {
 }
 
 .add-button {
-  width: 125px;
+  padding: 0;
   border: none;
   background-color: rgb(255, 254, 254, 0);
 }
@@ -200,6 +200,16 @@ dialog::backdrop {
 
 .height100 {
   height: 100%;
+}
+
+.card-name {
+  margin-bottom: 5px;
+  font-size: large;
+}
+
+.deck-select {
+  border: solid 1px #ced4da;
+  border-radius: 5px;
 }
 
 @media only screen and (min-width: 450px) and (max-width: 600px) {

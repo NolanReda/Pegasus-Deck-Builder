@@ -30,6 +30,21 @@ function searchResults(event) {
         add.setAttribute('class', 'add-button');
         add.innerHTML = 'Add card to deck';
         div.appendChild(add);
+        var select = document.createElement('select');
+        select.setAttribute('id', 'deck-select');
+        select.setAttribute('class', 'deck-select');
+        var selectOne = document.createElement('option');
+        var blankOption = document.createTextNode('select');
+        selectOne.appendChild(blankOption);
+        select.appendChild(selectOne);
+        for (var deck in data.decks) {
+          var option = document.createElement('option');
+          option.setAttribute('value', deck);
+          var optionText = document.createTextNode(deck);
+          option.appendChild(optionText);
+          select.appendChild(option);
+        }
+        div.appendChild(select);
         $resultList.appendChild(div);
       }
     } else if (xhr.status === 400) {
@@ -109,10 +124,12 @@ $searchResults.addEventListener('click', getDetails);
 function addCard(event) {
   if (event.target.getAttribute('id') === 'add-button') {
     // console.log(event.target);
-    data.decks.deck1.cards.push($response);
-    data.decks.deck1.cards[data.decks.deck1.nextCardId].imageUrl = $searchResults.childNodes[event.target.closest('div').getAttribute('data-result-id')].childNodes[0].src;
-    data.decks.deck1.cards[data.decks.deck1.nextCardId].cardId = data.decks.deck1.nextCardId;
-    data.decks.deck1.nextCardId++;
+    for (var deck in data.decks) {
+      data.decks[deck].cards.push($response);
+      data.decks.deck1.cards[data.decks.deck1.nextCardId].imageUrl = $searchResults.childNodes[event.target.closest('div').getAttribute('data-result-id')].childNodes[0].src;
+      data.decks.deck1.cards[data.decks.deck1.nextCardId].cardId = data.decks.deck1.nextCardId;
+      data.decks.deck1.nextCardId++;
+    }
   }
 }
 
@@ -147,7 +164,6 @@ function createNewDeck(event) {
     cards: [],
     nextCardId: 1
   };
-  $deckName.value = '';
 }
 
 $createDeck.addEventListener('click', createNewDeck);
@@ -155,16 +171,42 @@ $createDeck.addEventListener('click', createNewDeck);
 var $deckRows = document.querySelector('#deck-rows');
 
 function loadDecks(event) {
-  for (var deck in data.decks) {
-    var div = document.createElement('div');
-    div.setAttribute('class', 'column-fourth card-wrapper');
-    var img = document.createElement('img');
-    img.setAttribute('class', 'card');
-    img.setAttribute('src', 'images/card-back.png');
-    img.setAttribute('alt', data.deck[deck]);
-    div.appendChild(img);
-    $deckRows.appendChild(div);
+  if (event.type === 'DOMContentLoaded') {
+    for (var deck in data.decks) {
+      var div = document.createElement('div');
+      div.setAttribute('class', 'column-fourth card-wrapper');
+      var cardName = document.createElement('p');
+      cardName.setAttribute('class', 'card-name');
+      var nameText = document.createTextNode(deck);
+      cardName.appendChild(nameText);
+      div.appendChild(cardName);
+      var img = document.createElement('img');
+      img.setAttribute('class', 'card');
+      img.setAttribute('src', 'images/card-back.png');
+      img.setAttribute('alt', deck);
+      div.appendChild(img);
+      $deckRows.appendChild(div);
+      // console.log(event);
+    }
+  } else if (event.type === 'click') {
+    var divClick = document.createElement('div');
+    divClick.setAttribute('class', 'column-fourth card-wrapper');
+    var cardNameClick = document.createElement('p');
+    cardNameClick.setAttribute('class', 'card-name');
+    var nameTextClick = document.createTextNode($deckName.value);
+    // console.log('textNode:', nameTextClick);
+    cardNameClick.appendChild(nameTextClick);
+    divClick.appendChild(cardNameClick);
+    var imgClick = document.createElement('img');
+    imgClick.setAttribute('class', 'card');
+    imgClick.setAttribute('src', 'images/card-back.png');
+    imgClick.setAttribute('alt', $deckName.value);
+    divClick.appendChild(imgClick);
+    $deckRows.appendChild(divClick);
+    viewSwap('decks');
+    $deckName.value = '';
   }
 }
 
 window.addEventListener('DOMContentLoaded', loadDecks);
+$createDeck.addEventListener('click', loadDecks);
