@@ -32,7 +32,7 @@
     <div class="background row">
       <img class="background-logo" src="images/pegasus-logo-full.png" alt="background-logo">
     </div><!--end of header-->
-    <div class="view" data-view="search">
+    <div class="hidden" data-view="search">
       <div class="row search justify-center">
         <div class="row">
           <form class="search-form">
@@ -57,7 +57,7 @@
     </div><!--end of search view-->
     <div class="hidden" data-view="details">
       <div class="row justify-end return">
-        <button id="return-button" class="return-button" type="submit">Return</button>
+        <button id="return-button" class="return-button" type="button">Return</button>
       </div>
       <div class="row detail">
         <div class="column-third">
@@ -128,6 +128,19 @@
         <button id="create-deck" class="search-button">Create Deck</button>
       </div>
     </div><!--end of new deck view-->
+    <div class="view" data-view="deck-display">
+      <div class="row deck-title">
+        <div class="column-half">
+          <h1 class="marg-l-25">Deck Name</h1>
+        </div>
+        <div class="column-half">
+          <div class="row justify-end">
+            <button id="return-to-decks-button" class="return-to-deck-button" type="button">Return</button>
+          </div>
+        </div>
+      </div>
+      <div id="deck-display" class="row deck-display"></div>
+    </div><!--end of deck-contents-->
   </main>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>

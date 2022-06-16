@@ -199,6 +199,10 @@ dialog::backdrop {
   background: rgb(0 0 0 / 80%);
 }
 
+.deck {
+  height: 250px;
+}
+
 .height100 {
   height: 100%;
 }
@@ -211,6 +215,19 @@ dialog::backdrop {
 .deck-select {
   border: solid 1px #ced4da;
   border-radius: 5px;
+}
+
+.return-to-deck-button {
+  margin-right: 3rem;
+  margin-top: 2.5rem;
+  color: #f00;
+  background-color: white;
+  border: solid 1px #f00;
+  border-radius: 5px;
+}
+
+.return-to-deck-button:active {
+  background-color: #dfd8d8;
 }
 
 @media only screen and (min-width: 450px) and (max-width: 600px) {

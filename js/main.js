@@ -184,7 +184,7 @@ function loadDecks(event) {
       cardName.appendChild(nameText);
       div.appendChild(cardName);
       var img = document.createElement('img');
-      img.setAttribute('class', 'card');
+      img.setAttribute('class', 'deck');
       img.setAttribute('src', 'images/card-back.png');
       img.setAttribute('alt', deck);
       div.appendChild(img);
@@ -201,7 +201,7 @@ function loadDecks(event) {
     cardNameClick.appendChild(nameTextClick);
     divClick.appendChild(cardNameClick);
     var imgClick = document.createElement('img');
-    imgClick.setAttribute('class', 'card');
+    imgClick.setAttribute('class', 'deck');
     imgClick.setAttribute('src', 'images/card-back.png');
     imgClick.setAttribute('alt', $deckName.value);
     divClick.appendChild(imgClick);
@@ -213,3 +213,26 @@ function loadDecks(event) {
 
 window.addEventListener('DOMContentLoaded', loadDecks);
 $createDeck.addEventListener('click', loadDecks);
+
+var $deckDisplay = document.querySelector('#deck-display');
+
+function displayDeck(event) {
+  $deckDisplay.replaceChildren('');
+  if (event.target.getAttribute('class') === 'deck') {
+    var deck = data.decks[event.target.previousElementSibling.innerHTML];
+    for (let i = 0; i < deck.cards.length; i++) {
+      var div = document.createElement('div');
+      div.setAttribute('class', 'column-fourth');
+      div.setAttribute('data-card-id', deck.cards[i].cardId);
+      var img = document.createElement('img');
+      img.setAttribute('class', 'card');
+      img.setAttribute('src', deck.cards[i].imageUrl);
+      img.setAttribute('alt', deck.cards[i].data[0].name);
+      div.appendChild(img);
+      $deckDisplay.appendChild(div);
+    }
+    viewSwap('deck-display');
+  }
+}
+
+$deckRows.addEventListener('click', displayDeck);
