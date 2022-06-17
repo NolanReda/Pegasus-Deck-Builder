@@ -241,8 +241,11 @@ $createDeck.addEventListener('click', loadDecks);
 
 var currentDeck = null;
 
+var deckNameH1 = document.querySelector('#deck-name-h1');
+
 function displayDeck(event) {
   $deckDisplay.replaceChildren('');
+  deckNameH1.textContent = event.target.alt;
   if (event.target.getAttribute('class') === 'deck') {
     currentDeck = data.decks[event.target.previousElementSibling.innerHTML];
     for (let i = 0; i < currentDeck.cards.length; i++) {
@@ -254,6 +257,13 @@ function displayDeck(event) {
       img.setAttribute('src', currentDeck.cards[i].imageUrl);
       img.setAttribute('alt', currentDeck.cards[i].data[0].name);
       div.appendChild(img);
+      var deleteButton = document.createElement('button');
+      deleteButton.setAttribute('type', 'button');
+      deleteButton.setAttribute('id', 'delete-button');
+      deleteButton.setAttribute('class', 'delete-button');
+      var deleteText = document.createTextNode('Delete');
+      deleteButton.appendChild(deleteText);
+      div.appendChild(deleteButton);
       $deckDisplay.appendChild(div);
     }
     viewSwap('deck-display');
@@ -267,3 +277,36 @@ function returnToDecks(event) {
   viewSwap('decks');
 }
 $returnToDecksButton.addEventListener('click', returnToDecks);
+
+// delete stuff below
+
+var $deleteModal = document.querySelector('#delete-modal');
+var eventTarget = null;
+
+function openDelete(event) {
+  eventTarget = event.target;
+  if (event.target.className === 'delete-button') {
+    $deleteModal.showModal();
+  }
+}
+var $no = document.querySelector('#no');
+function closeDelete(event) {
+  $deleteModal.close();
+}
+
+$deckDisplay.addEventListener('click', openDelete);
+$no.addEventListener('click', closeDelete);
+
+var $confirm = document.querySelector('#confirm');
+
+function handleDelete(event) {
+  for (let i = 0; i < currentDeck.cards.length; i++) {
+    if (currentDeck.cards[i].cardId.toString() === eventTarget.closest('div').attributes[1].value) {
+      currentDeck.cards.splice(currentDeck.cards[i], 1);
+      eventTarget.closest('div').remove();
+    }
+  }
+}
+
+$confirm.addEventListener('click', handleDelete);
+$confirm.addEventListener('click', closeDelete);

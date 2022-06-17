@@ -131,7 +131,7 @@
     <div class="hidden" data-view="deck-display">
       <div class="row deck-title">
         <div class="column-half">
-          <h1 class="marg-l-25">Deck Name</h1>
+          <h1 id="deck-name-h1" class="marg-l-25">Deck Name</h1>
         </div>
         <div class="column-half">
           <div class="row justify-end">
@@ -141,6 +141,17 @@
       </div>
       <div id="deck-display" class="row deck-display"></div>
     </div><!--end of deck-contents-->
+    <dialog id="delete-modal">
+      <form id="delete-form" method="dialog" class="delete-form">
+        <div class="row">
+          <p>Are you sure you want to delete this card?</p>
+        </div>
+        <div class="row conf-canc">
+          <button id="confirm" class="delete-button" type="button">Confirm</button>
+          <button id="no" class="no" type="button">Cancel</button>
+        </div>
+      </form>
+    </dialog>
   </main>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
