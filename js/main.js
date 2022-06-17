@@ -11,8 +11,6 @@ function searchResults(event) {
   xhr.open('GET', 'https://db.ygoprodeck.com/api/v7/cardinfo.php?name=' + $searchBar.value);
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
-    // console.log(xhr.status);
-    // console.log(xhr.response);
     $response = xhr.response;
     if (xhr.status === 200) {
       for (let i = 0; i < this.response.data[0].card_images.length; i++) {
@@ -82,13 +80,20 @@ function navDecks(event) {
   viewSwap('decks');
 }
 $navDecks.addEventListener('click', navDecks);
+
 function navSearch(event) {
   $searchBar.value = '';
+  currentDeck = null;
   viewSwap('search');
 }
 $navSearch.addEventListener('click', navSearch);
+
 function handleReturn(event) {
-  viewSwap('search');
+  if (currentDeck === null) {
+    viewSwap('search');
+  } else {
+    viewSwap('deck-display');
+  }
 }
 $returnButton.addEventListener('click', handleReturn);
 
@@ -107,7 +112,6 @@ var $ebay = document.querySelector('#ebay');
 var $tcgPlayer = document.querySelector('#tcgplayer');
 
 function getDetails(event) {
-  // console.log(event.target.closest('div[data-view]').attributes[1].value);
   if (event.target.closest('div[data-view]').attributes[1].value === 'search') {
     if (event.target.className === 'card') {
       $detailImg.setAttribute('src', $searchResults.childNodes[event.target.closest('div').getAttribute('data-result-id')].childNodes[0].src);
@@ -212,7 +216,6 @@ function loadDecks(event) {
       img.setAttribute('alt', deck);
       div.appendChild(img);
       $deckRows.appendChild(div);
-      // console.log(event);
     }
   } else if (event.type === 'click') {
     var divClick = document.createElement('div');
@@ -220,7 +223,6 @@ function loadDecks(event) {
     var cardNameClick = document.createElement('p');
     cardNameClick.setAttribute('class', 'card-name');
     var nameTextClick = document.createTextNode($deckName.value);
-    // console.log('textNode:', nameTextClick);
     cardNameClick.appendChild(nameTextClick);
     divClick.appendChild(cardNameClick);
     var imgClick = document.createElement('img');
@@ -260,8 +262,8 @@ function displayDeck(event) {
 
 $deckRows.addEventListener('click', displayDeck);
 
-var returnToDecksButton = document.querySelector('#return-to-decks-button');
+var $returnToDecksButton = document.querySelector('#return-to-decks-button');
 function returnToDecks(event) {
-  viewSwap('deck-display');
+  viewSwap('decks');
 }
-returnToDecksButton.addEventListener('click', returnToDecks);
+$returnToDecksButton.addEventListener('click', returnToDecks);
