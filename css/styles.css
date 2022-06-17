@@ -209,6 +209,7 @@ dialog::backdrop {
 
 .card-name {
   margin-bottom: 5px;
+  width: 180px;
   font-size: large;
 }
 
@@ -228,6 +229,28 @@ dialog::backdrop {
 
 .return-to-deck-button:active {
   background-color: #dfd8d8;
+}
+
+.delete-button {
+  color: #f00;
+  background-color: white;
+  border: solid 1px #f00;
+  border-radius: 5px;
+}
+
+.delete-button:active {
+  background-color: #dfd8d8;
+}
+
+.conf-canc {
+  justify-content: space-around;
+}
+
+.no {
+  color: white;
+  background-color: #f00;
+  border: solid 3px #f00;
+  border-radius: 5px;
 }
 
 @media only screen and (min-width: 450px) and (max-width: 600px) {
@@ -319,4 +342,5 @@ dialog::backdrop {
     margin: 20px 60px;
     height: 130px;
   }
+}
 }
