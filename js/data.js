@@ -2,12 +2,7 @@
 
 var data = {
   view: 'search',
-  decks: {
-    deck1: {
-      cards: [],
-      nextCardId: 0
-    }
-  },
+  decks: {},
   resultId: 1
 };
 

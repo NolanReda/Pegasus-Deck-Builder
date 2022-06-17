@@ -7,13 +7,10 @@ var $response = {};
 function searchResults(event) {
   $resultList.replaceChildren('');
   data.resultId = 1;
-  event.preventDefault();
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://db.ygoprodeck.com/api/v7/cardinfo.php?name=' + $searchBar.value);
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
-    // console.log(xhr.status);
-    // console.log(xhr.response);
     $response = xhr.response;
     if (xhr.status === 200) {
       for (let i = 0; i < this.response.data[0].card_images.length; i++) {
@@ -31,6 +28,21 @@ function searchResults(event) {
         add.setAttribute('class', 'add-button');
         add.innerHTML = 'Add card to deck';
         div.appendChild(add);
+        var select = document.createElement('select');
+        select.setAttribute('id', 'deck-select');
+        select.setAttribute('class', 'deck-select');
+        var selectOne = document.createElement('option');
+        var blankOption = document.createTextNode('select');
+        selectOne.appendChild(blankOption);
+        select.appendChild(selectOne);
+        for (var deck in data.decks) {
+          var option = document.createElement('option');
+          option.setAttribute('value', deck);
+          var optionText = document.createTextNode(deck);
+          option.appendChild(optionText);
+          select.appendChild(option);
+        }
+        div.appendChild(select);
         $resultList.appendChild(div);
       }
     } else if (xhr.status === 400) {
@@ -62,12 +74,32 @@ function viewSwap(viewName) {
   }
 }
 
-function handleReturn(event) {
+var $navDecks = document.querySelector('#nav-decks');
+var $navSearch = document.querySelector('#nav-card-search');
+function navDecks(event) {
+  viewSwap('decks');
+}
+$navDecks.addEventListener('click', navDecks);
+
+function navSearch(event) {
+  $searchBar.value = '';
+  currentDeck = null;
   viewSwap('search');
+}
+$navSearch.addEventListener('click', navSearch);
+
+function handleReturn(event) {
+  if (currentDeck === null) {
+    viewSwap('search');
+  } else {
+    viewSwap('deck-display');
+  }
 }
 $returnButton.addEventListener('click', handleReturn);
 
 var $searchResults = document.querySelector('#search-results');
+
+var $deckDisplay = document.querySelector('#deck-display');
 
 var $detailImg = document.querySelector('.detail-img');
 var $cardName = document.querySelector('#card-name');
@@ -80,29 +112,54 @@ var $ebay = document.querySelector('#ebay');
 var $tcgPlayer = document.querySelector('#tcgplayer');
 
 function getDetails(event) {
-  if (event.target.className === 'card') {
-    $detailImg.setAttribute('src', $searchResults.childNodes[event.target.closest('div').getAttribute('data-result-id')].childNodes[0].src);
-    $cardName.textContent = $response.data[0].name;
-    $cardType.textContent = $response.data[0].race + '/' + $response.data[0].type;
-    $cardDesc.textContent = $response.data[0].desc;
-    $amazon.textContent = 'Amazon price: $' + $response.data[0].card_prices[0].amazon_price;
-    $cardMarket.textContent = 'Cardmarket price: $' + $response.data[0].card_prices[0].cardmarket_price;
-    $coolStuff.textContent = 'CoolStuff Inc price: $' + $response.data[0].card_prices[0].coolstuffinc_price;
-    $ebay.textContent = 'Ebay price: $' + $response.data[0].card_prices[0].ebay_price;
-    $tcgPlayer.textContent = 'TCGplayer price: $' + $response.data[0].card_prices[0].tcgplayer_price;
-    viewSwap('details');
+  if (event.target.closest('div[data-view]').attributes[1].value === 'search') {
+    if (event.target.className === 'card') {
+      $detailImg.setAttribute('src', $searchResults.childNodes[event.target.closest('div').getAttribute('data-result-id')].childNodes[0].src);
+      $cardName.textContent = $response.data[0].name;
+      $cardType.textContent = $response.data[0].race + '/' + $response.data[0].type;
+      $cardDesc.textContent = $response.data[0].desc;
+      $amazon.textContent = 'Amazon price: $' + $response.data[0].card_prices[0].amazon_price;
+      $cardMarket.textContent = 'Cardmarket price: $' + $response.data[0].card_prices[0].cardmarket_price;
+      $coolStuff.textContent = 'CoolStuff Inc price: $' + $response.data[0].card_prices[0].coolstuffinc_price;
+      $ebay.textContent = 'Ebay price: $' + $response.data[0].card_prices[0].ebay_price;
+      $tcgPlayer.textContent = 'TCGplayer price: $' + $response.data[0].card_prices[0].tcgplayer_price;
+      viewSwap('details');
+    }
+  } else if (event.target.closest('div[data-view]').attributes[1].value === 'deck-display') {
+    if (event.target.className === 'card') {
+      $detailImg.setAttribute('src', event.target.src);
+      for (let i = 0; i < currentDeck.cards.length; i++) {
+        if (currentDeck.cards[i].cardId.toString() === event.target.closest('div[data-card-id]').attributes[1].value) {
+          $cardName.textContent = currentDeck.cards[i].data[0].name;
+          $cardType.textContent = currentDeck.cards[i].data[0].race + currentDeck.cards[i].data[0].type;
+          $cardDesc.textContent = currentDeck.cards[i].data[0].desc;
+          $amazon.textContent = 'Amazon price: $' + currentDeck.cards[i].data[0].card_prices[0].amazon_price;
+          $cardMarket.textContent = 'Cardmarket price: $' + currentDeck.cards[i].data[0].card_prices[0].cardmarket_price;
+          $coolStuff.textContent = 'CoolStuff Inc price: $' + currentDeck.cards[i].data[0].card_prices[0].coolstuffinc_price;
+          $ebay.textContent = 'Ebay price: $' + currentDeck.cards[i].data[0].card_prices[0].ebay_price;
+          $tcgPlayer.textContent = 'TCGplayer price: $' + currentDeck.cards[i].data[0].card_prices[0].tcgplayer_price;
+          viewSwap('details');
+        }
+      }
+    }
   }
 }
 
 $searchResults.addEventListener('click', getDetails);
+$deckDisplay.addEventListener('click', getDetails);
 
 function addCard(event) {
   if (event.target.getAttribute('id') === 'add-button') {
-    // console.log(event.target);
-    data.decks.deck1.cards.push($response);
-    data.decks.deck1.cards[data.decks.deck1.nextCardId].imageUrl = $searchResults.childNodes[event.target.closest('div').getAttribute('data-result-id')].childNodes[0].src;
-    data.decks.deck1.cards[data.decks.deck1.nextCardId].cardId = data.decks.deck1.nextCardId;
-    data.decks.deck1.nextCardId++;
+    for (var deck in data.decks) {
+      if (deck === event.target.nextElementSibling.value) {
+        var nextCard = {};
+        nextCard.data = $response.data;
+        nextCard.cardId = data.decks[deck].nextCardId;
+        nextCard.imageUrl = $searchResults.childNodes[event.target.closest('div').getAttribute('data-result-id')].childNodes[0].src;
+        data.decks[deck].cards.push(nextCard);
+        data.decks[deck].nextCardId++;
+      }
+    }
   }
 }
 
@@ -110,6 +167,7 @@ $searchResults.addEventListener('click', addCard);
 
 var $modal = document.querySelector('#modal');
 var $ok = document.querySelector('.ok');
+
 function open(event) {
   if (event.target.getAttribute('id') === 'add-button') {
     $modal.showModal();
@@ -120,3 +178,92 @@ function close(event) {
   $modal.close();
 }
 $ok.addEventListener('click', close);
+
+var $deckName = document.querySelector('#deck-name');
+var $newDeck = document.querySelector('#new-deck');
+function newDeckView(event) {
+  $deckName.value = '';
+  viewSwap('new-deck');
+}
+$newDeck.addEventListener('click', newDeckView);
+
+var $createDeck = document.querySelector('#create-deck');
+
+function createNewDeck(event) {
+  data.decks[$deckName.value] = {
+    cards: [],
+    nextCardId: 0
+  };
+}
+
+$createDeck.addEventListener('click', createNewDeck);
+
+var $deckRows = document.querySelector('#deck-rows');
+
+function loadDecks(event) {
+  if (event.type === 'DOMContentLoaded') {
+    for (var deck in data.decks) {
+      var div = document.createElement('div');
+      div.setAttribute('class', 'column-fourth card-wrapper');
+      var cardName = document.createElement('p');
+      cardName.setAttribute('class', 'card-name');
+      var nameText = document.createTextNode(deck);
+      cardName.appendChild(nameText);
+      div.appendChild(cardName);
+      var img = document.createElement('img');
+      img.setAttribute('class', 'deck');
+      img.setAttribute('src', 'images/card-back.png');
+      img.setAttribute('alt', deck);
+      div.appendChild(img);
+      $deckRows.appendChild(div);
+    }
+  } else if (event.type === 'click') {
+    var divClick = document.createElement('div');
+    divClick.setAttribute('class', 'column-fourth card-wrapper');
+    var cardNameClick = document.createElement('p');
+    cardNameClick.setAttribute('class', 'card-name');
+    var nameTextClick = document.createTextNode($deckName.value);
+    cardNameClick.appendChild(nameTextClick);
+    divClick.appendChild(cardNameClick);
+    var imgClick = document.createElement('img');
+    imgClick.setAttribute('class', 'deck');
+    imgClick.setAttribute('src', 'images/card-back.png');
+    imgClick.setAttribute('alt', $deckName.value);
+    divClick.appendChild(imgClick);
+    $deckRows.appendChild(divClick);
+    viewSwap('decks');
+    $deckName.value = '';
+  }
+}
+
+window.addEventListener('DOMContentLoaded', loadDecks);
+$createDeck.addEventListener('click', loadDecks);
+
+var currentDeck = null;
+
+function displayDeck(event) {
+  $deckDisplay.replaceChildren('');
+  if (event.target.getAttribute('class') === 'deck') {
+    currentDeck = data.decks[event.target.previousElementSibling.innerHTML];
+    for (let i = 0; i < currentDeck.cards.length; i++) {
+      var div = document.createElement('div');
+      div.setAttribute('class', 'column-fourth');
+      div.setAttribute('data-card-id', currentDeck.cards[i].cardId);
+      var img = document.createElement('img');
+      img.setAttribute('class', 'card');
+      img.setAttribute('src', currentDeck.cards[i].imageUrl);
+      img.setAttribute('alt', currentDeck.cards[i].data[0].name);
+      div.appendChild(img);
+      $deckDisplay.appendChild(div);
+    }
+    viewSwap('deck-display');
+  }
+}
+
+$deckRows.addEventListener('click', displayDeck);
+
+var $returnToDecksButton = document.querySelector('#return-to-decks-button');
+function returnToDecks(event) {
+  viewSwap('decks');
+}
+$returnToDecksButton.addEventListener('click', returnToDecks);

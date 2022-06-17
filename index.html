@@ -18,8 +18,8 @@
     <div class="header-l column-half">
       <div class="row align-center">
         <img class="logo white" src="images/pegasus title white.png" alt="pegasus-deck-builder-logo">
-        <button class="nav-button">Decks</button>
-        <button class="nav-button">Card Search</button>
+        <button id="nav-decks" class="nav-button" type="button">Decks</button>
+        <button id="nav-card-search" class="nav-button" type="button">Card Search</button>
       </div>
     </div>
     <div class="header-r column-half">
@@ -37,7 +37,7 @@
         <div class="row">
           <form class="search-form">
             <input id="search-bar" class="search-bar" type="search" required>
-            <button id="search-button" class="search-button" type="submit">Search</button>
+            <button id="search-button" class="search-button" type="button">Search</button>
           </form>
         </div>
         <div id="search-results" class="row result-list"></div>
@@ -46,22 +46,22 @@
             <form id="confirm-add" method="dialog" class="modal-form">
               <div class="row justify-center">
                 <p>Card Added</p>
-              </div><!--modal-->
+              </div>
               <div class="row justify-center">
                 <input class="ok" type="button" value="OK">
               </div>
             </form>
           </dialog>
-        </div>
+        </div><!--modal-->
       </div>
     </div><!--end of search view-->
     <div class="hidden" data-view="details">
-      <div class="row justify-end return">
-        <button id="return-button" class="return-button" type="submit">Return</button>
+      <div id="return-row" class="row justify-end return">
+        <button id="return-button" class="return-button" type="button">Return</button>
       </div>
       <div class="row detail">
         <div class="column-third">
-          <img class="detail-img" src="images/card back.png" alt="">
+          <img class="detail-img" src="" alt="">
         </div>
         <div class="column-two-thirds">
           <div class="row tb">
@@ -98,7 +98,49 @@
           </div>
         </div>
       </div>
-    </div>
+    </div><!--end of detail view-->
+    <div class="hidden" data-view="decks">
+      <div class="row decks-head">
+        <div class="column-half">
+          <div class="row">
+            <h1 class="marg-l-25">Decks</h1>
+          </div>
+        </div>
+        <div class="column-half">
+          <div class="row justify-end height100">
+            <button id="new-deck" class="new-deck" type="button">New Deck +</button>
+          </div>
+        </div>
+      </div>
+      <div id="deck-rows" class="row decks-list"></div>
+    </div><!--end of decks view-->
+    <div class="hidden" data-view="new-deck">
+      <div class="row new-deck-h1">
+        <h1 class="marg-l-25">New Deck</h1>
+      </div>
+      <div class="row new-deck-input">
+        <div class="column-full">
+          <div class="row">
+            <label class="marg-l-25" for="deck-name">Deck Name</label>
+          </div>
+        </div>
+        <input class="marg-l-25" type="text" name="deck-name" id="deck-name" size="40" required>
+        <button id="create-deck" class="search-button">Create Deck</button>
+      </div>
+    </div><!--end of new deck view-->
+    <div class="hidden" data-view="deck-display">
+      <div class="row deck-title">
+        <div class="column-half">
+          <h1 class="marg-l-25">Deck Name</h1>
+        </div>
+        <div class="column-half">
+          <div class="row justify-end">
+            <button id="return-to-decks-button" class="return-to-deck-button" type="button">Return</button>
+          </div>
+        </div>
+      </div>
+      <div id="deck-display" class="row deck-display"></div>
+    </div><!--end of deck-contents-->
   </main>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
