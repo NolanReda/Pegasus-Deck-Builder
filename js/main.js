@@ -278,8 +278,6 @@ function returnToDecks(event) {
 }
 $returnToDecksButton.addEventListener('click', returnToDecks);
 
-// delete stuff below
-
 var $deleteModal = document.querySelector('#delete-modal');
 var eventTarget = null;
 
