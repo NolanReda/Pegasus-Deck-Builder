@@ -253,7 +253,7 @@ dialog::backdrop {
   border-radius: 5px;
 }
 
-@media only screen and (min-width: 450px) and (max-width: 600px) {
+@media only screen and (max-width: 500px) {
   .container {
     max-width: 100vw;
     height: 100vh;
@@ -265,7 +265,7 @@ dialog::backdrop {
 
   .column-fourth {
     width: 100%;
-    padding: 0 170.5px;
+    margin: 40px 50px;
   }
 
   .column-half {
@@ -277,7 +277,7 @@ dialog::backdrop {
   }
 
   .detail-img {
-    height: 315px;
+    height: 260px;
   }
 
   .column-third {
@@ -292,7 +292,7 @@ dialog::backdrop {
 
   .top-box {
     width: 230px;
-    margin: 0;
+    margin: 0 10px 0 0;
   }
 
   .return {
@@ -308,7 +308,7 @@ dialog::backdrop {
     width: 400px;
     position: relative;
     margin: 115px -80px;
-    right: 8rem;
+    right: 6rem;
   }
 
   a {
@@ -342,5 +342,4 @@ dialog::backdrop {
     margin: 20px 60px;
     height: 130px;
   }
-}
 }
