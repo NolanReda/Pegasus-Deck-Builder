@@ -12,6 +12,27 @@ function searchResults(event) {
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
     $response = xhr.response;
+    if (xhr.status === 400) {
+      var noResult = document.createElement('div');
+      noResult.setAttribute('class', 'row none');
+      var h1 = document.createElement('h1');
+      h1.setAttribute('class', 'no-result-found');
+      var nothing = document.createTextNode('No Results Found');
+      h1.appendChild(nothing);
+      noResult.appendChild(h1);
+      $resultList.appendChild(noResult);
+    }
+    if (!$searchBar.value) {
+      var noSearch = document.createElement('div');
+      noSearch.setAttribute('class', 'row none');
+      var h1i = document.createElement('h1');
+      h1i.setAttribute('class', 'no-result-found');
+      var nothing1 = document.createTextNode('Please search a valid card');
+      h1i.appendChild(nothing1);
+      noSearch.appendChild(h1i);
+      $resultList.appendChild(noSearch);
+      return;
+    }
     if (xhr.status === 200) {
       for (let i = 0; i < this.response.data[0].card_images.length; i++) {
         var div = document.createElement('div');
@@ -45,15 +66,6 @@ function searchResults(event) {
         div.appendChild(select);
         $resultList.appendChild(div);
       }
-    } else if (xhr.status === 400) {
-      var noResult = document.createElement('div');
-      noResult.setAttribute('class', 'row none');
-      var h1 = document.createElement('h1');
-      h1.setAttribute('class', 'no-result-found');
-      var nothing = document.createTextNode('No Results Found');
-      h1.appendChild(nothing);
-      noResult.appendChild(h1);
-      $resultList.appendChild(noResult);
     }
   });
   xhr.send();
