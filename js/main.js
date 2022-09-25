@@ -197,8 +197,12 @@ $ok.addEventListener('click', close);
 
 var $deckName = document.querySelector('#deck-name');
 var $newDeck = document.querySelector('#new-deck');
+var $deckInput = document.querySelector('.new-deck-input');
 
 function newDeckView(event) {
+  if ($deckInput.childElementCount === 4) {
+    $deckInput.removeChild($deckInput.lastChild);
+  }
   $deckName.value = '';
   viewSwap('new-deck');
 }
@@ -219,14 +223,19 @@ function createNewDeck(event) {
 $createDeck.addEventListener('click', createNewDeck);
 
 var $deckRows = document.querySelector('#deck-rows');
-var $deckInput = document.querySelector('.new-deck-input');
 
 function loadDecks(event) {
   if (event.type === 'click' && $deckName.value === '') {
+    if ($deckInput.childElementCount === 4) {
+      var $no = document.querySelector('#no-deck');
+      $deckInput.removeChild($no);
+    }
     var fail = document.createElement('div');
     fail.setAttribute('class', 'row none');
+    fail.setAttribute('id', 'no-deck');
     var noDeck = document.createElement('h4');
     noDeck.setAttribute('class', 'no-result-found');
+
     var nothing = document.createTextNode('Please enter a deck name');
     noDeck.appendChild(nothing);
     fail.appendChild(noDeck);
