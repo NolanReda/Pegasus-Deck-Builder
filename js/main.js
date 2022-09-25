@@ -5,58 +5,74 @@ var $resultList = document.querySelector('#search-results');
 var $response = {};
 
 function searchResults(event) {
-  $resultList.replaceChildren('');
-  data.resultId = 1;
-  var xhr = new XMLHttpRequest();
-  xhr.open('GET', 'https://db.ygoprodeck.com/api/v7/cardinfo.php?name=' + $searchBar.value);
-  xhr.responseType = 'json';
-  xhr.addEventListener('load', function () {
-    $response = xhr.response;
-    if (xhr.status === 200) {
-      for (let i = 0; i < this.response.data[0].card_images.length; i++) {
-        var div = document.createElement('div');
-        div.setAttribute('class', 'column-fourth card-wrapper');
-        div.setAttribute('data-result-id', data.resultId);
-        data.resultId++;
-        var img = document.createElement('img');
-        img.setAttribute('class', 'card');
-        img.setAttribute('src', this.response.data[0].card_images[i].image_url);
-        img.setAttribute('alt', this.response.data[0].name);
-        div.appendChild(img);
-        var add = document.createElement('button');
-        add.setAttribute('id', 'add-button');
-        add.setAttribute('class', 'add-button');
-        add.innerHTML = 'Add card to deck';
-        div.appendChild(add);
-        var select = document.createElement('select');
-        select.setAttribute('id', 'deck-select');
-        select.setAttribute('class', 'deck-select');
-        var selectOne = document.createElement('option');
-        var blankOption = document.createTextNode('select');
-        selectOne.appendChild(blankOption);
-        select.appendChild(selectOne);
-        for (var deck in data.decks) {
-          var option = document.createElement('option');
-          option.setAttribute('value', deck);
-          var optionText = document.createTextNode(deck);
-          option.appendChild(optionText);
-          select.appendChild(option);
-        }
-        div.appendChild(select);
-        $resultList.appendChild(div);
+  var searchTime;
+  clearTimeout(searchTime);
+  searchTime = setTimeout(() => {
+    $resultList.replaceChildren('');
+    data.resultId = 1;
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'https://db.ygoprodeck.com/api/v7/cardinfo.php?name=' + $searchBar.value);
+    xhr.responseType = 'json';
+    xhr.addEventListener('load', function () {
+      $response = xhr.response;
+      if (xhr.status === 400) {
+        var noResult = document.createElement('div');
+        noResult.setAttribute('class', 'row none');
+        var h1 = document.createElement('h1');
+        h1.setAttribute('class', 'no-result-found');
+        var nothing = document.createTextNode('No Results Found');
+        h1.appendChild(nothing);
+        noResult.appendChild(h1);
+        $resultList.appendChild(noResult);
       }
-    } else if (xhr.status === 400) {
-      var noResult = document.createElement('div');
-      noResult.setAttribute('class', 'row none');
-      var h1 = document.createElement('h1');
-      h1.setAttribute('class', 'no-result-found');
-      var nothing = document.createTextNode('No Results Found');
-      h1.appendChild(nothing);
-      noResult.appendChild(h1);
-      $resultList.appendChild(noResult);
-    }
-  });
-  xhr.send();
+      if (!$searchBar.value) {
+        var noSearch = document.createElement('div');
+        noSearch.setAttribute('class', 'row none');
+        var h1i = document.createElement('h1');
+        h1i.setAttribute('class', 'no-result-found');
+        var nothing1 = document.createTextNode('Please search a valid card');
+        h1i.appendChild(nothing1);
+        noSearch.appendChild(h1i);
+        $resultList.appendChild(noSearch);
+        return;
+      }
+      if (xhr.status === 200) {
+        for (let i = 0; i < this.response.data[0].card_images.length; i++) {
+          var div = document.createElement('div');
+          div.setAttribute('class', 'column-fourth card-wrapper');
+          div.setAttribute('data-result-id', data.resultId);
+          data.resultId++;
+          var img = document.createElement('img');
+          img.setAttribute('class', 'card');
+          img.setAttribute('src', this.response.data[0].card_images[i].image_url);
+          img.setAttribute('alt', this.response.data[0].name);
+          div.appendChild(img);
+          var add = document.createElement('button');
+          add.setAttribute('id', 'add-button');
+          add.setAttribute('class', 'add-button');
+          add.innerHTML = 'Add card to deck';
+          div.appendChild(add);
+          var select = document.createElement('select');
+          select.setAttribute('id', 'deck-select');
+          select.setAttribute('class', 'deck-select');
+          var selectOne = document.createElement('option');
+          var blankOption = document.createTextNode('select');
+          selectOne.appendChild(blankOption);
+          select.appendChild(selectOne);
+          for (var deck in data.decks) {
+            var option = document.createElement('option');
+            option.setAttribute('value', deck);
+            var optionText = document.createTextNode(deck);
+            option.appendChild(optionText);
+            select.appendChild(option);
+          }
+          div.appendChild(select);
+          $resultList.appendChild(div);
+        }
+      }
+    });
+    xhr.send();
+  }, 1000);
 }
 
 $searchButton.addEventListener('click', searchResults);
@@ -181,6 +197,7 @@ $ok.addEventListener('click', close);
 
 var $deckName = document.querySelector('#deck-name');
 var $newDeck = document.querySelector('#new-deck');
+
 function newDeckView(event) {
   $deckName.value = '';
   viewSwap('new-deck');
@@ -190,6 +207,9 @@ $newDeck.addEventListener('click', newDeckView);
 var $createDeck = document.querySelector('#create-deck');
 
 function createNewDeck(event) {
+  if ($deckName.value === '') {
+    return;
+  }
   data.decks[$deckName.value] = {
     cards: [],
     nextCardId: 0
@@ -199,8 +219,20 @@ function createNewDeck(event) {
 $createDeck.addEventListener('click', createNewDeck);
 
 var $deckRows = document.querySelector('#deck-rows');
+var $deckInput = document.querySelector('.new-deck-input');
 
 function loadDecks(event) {
+  if (event.type === 'click' && $deckName.value === '') {
+    var fail = document.createElement('div');
+    fail.setAttribute('class', 'row none');
+    var noDeck = document.createElement('h4');
+    noDeck.setAttribute('class', 'no-result-found');
+    var nothing = document.createTextNode('Please enter a deck name');
+    noDeck.appendChild(nothing);
+    fail.appendChild(noDeck);
+    $deckInput.appendChild(fail);
+    return;
+  }
   if (event.type === 'DOMContentLoaded') {
     for (var deck in data.decks) {
       var div = document.createElement('div');
