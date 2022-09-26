@@ -13,8 +13,13 @@ function searchResults(event) {
   xhr.addEventListener('load', function () {
     $response = xhr.response;
     if (xhr.status === 400) {
+      if ($searchResults.childElementCount === 1) {
+        var $noResult = document.querySelector('#no-result');
+        $searchResults.removeChild($noResult);
+      }
       var noResult = document.createElement('div');
       noResult.setAttribute('class', 'row none');
+      noResult.setAttribute('id', 'no-result');
       var h1 = document.createElement('h1');
       h1.setAttribute('class', 'no-result-found');
       var nothing = document.createTextNode('No Results Found');
@@ -39,6 +44,10 @@ function searchResults(event) {
       return;
     }
     if (xhr.status === 200) {
+      if ($searchResults.childElementCount > 1) {
+        var $cards = document.querySelectorAll('.card-wrapper');
+        $searchResults.removeChild($cards);
+      }
       for (let i = 0; i < this.response.data[0].card_images.length; i++) {
         var div = document.createElement('div');
         div.setAttribute('class', 'column-fourth card-wrapper');
