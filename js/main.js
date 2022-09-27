@@ -1,6 +1,7 @@
 var $searchBar = document.querySelector('#search-bar');
 var $searchButton = document.querySelector('#search-button');
 var $resultList = document.querySelector('#search-results');
+var $searchForm = document.querySelector('#search-form');
 
 var $response = {};
 
@@ -83,9 +84,11 @@ function searchResults(event) {
     }
   });
   xhr.send();
+  event.preventDefault();
 }
 
 $searchButton.addEventListener('click', searchResults);
+$searchForm.addEventListener('submit', searchResults);
 
 var $dataView = document.querySelectorAll('[data-view]');
 var $returnButton = document.querySelector('#return-button');
