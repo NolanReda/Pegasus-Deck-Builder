@@ -1,11 +1,12 @@
 var $searchBar = document.querySelector('#search-bar');
 var $searchButton = document.querySelector('#search-button');
 var $resultList = document.querySelector('#search-results');
-var $searchForm = document.querySelector('#search-form');
+var $searchForm = document.querySelector('.search-form');
 
 var $response = {};
 
 function searchResults(event) {
+  event.preventDefault();
   $resultList.replaceChildren('');
   data.resultId = 1;
   var xhr = new XMLHttpRequest();
@@ -84,9 +85,9 @@ function searchResults(event) {
     }
   });
   xhr.send();
-  event.preventDefault();
 }
 
+$searchForm.addEventListener('submit', searchResults);
 $searchButton.addEventListener('click', searchResults);
 $searchForm.addEventListener('submit', searchResults);
 
@@ -199,6 +200,9 @@ var $ok = document.querySelector('.ok');
 // var $select = document.querySelector('#deck-delect');
 
 function open(event) {
+  if (event.target.parentElement.children[2].value === 'select') {
+    return;
+  }
   if (event.target.getAttribute('id') === 'add-button') {
 
     $modal.showModal();

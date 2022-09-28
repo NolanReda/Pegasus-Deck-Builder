@@ -5,6 +5,13 @@ header {
   box-shadow: 0 5px 15px -2px #000;
 }
 
+button,
+select,
+.card,
+.deck {
+  cursor: pointer;
+}
+
 .container {
   max-width: 1200px;
   margin: auto;
