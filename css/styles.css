@@ -5,6 +5,13 @@ header {
   box-shadow: 0 5px 15px -2px #000;
 }
 
+button,
+select,
+.card,
+.deck {
+  cursor: pointer;
+}
+
 .container {
   max-width: 1200px;
   margin: auto;
@@ -173,10 +180,12 @@ a {
 }
 
 .add-button {
-  width: 100px;
+  border-radius: 6px;
+  width: 105px;
   padding: 0;
-  border: none;
-  background-color: rgb(255, 254, 254, 0);
+  margin-right: 1px;
+  border: red 1px solid;
+  background-color: rgb(255, 254, 254);
 }
 
 #modal {
