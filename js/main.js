@@ -183,8 +183,12 @@ $searchResults.addEventListener('click', addCard);
 
 var $modal = document.querySelector('#modal');
 var $ok = document.querySelector('.ok');
+// var $select = document.querySelectorAll('.deck-select');
 
 function open(event) {
+  if (event.target.parentElement.children[2].value === 'select') {
+    return;
+  }
   if (event.target.getAttribute('id') === 'add-button') {
     $modal.showModal();
   }
