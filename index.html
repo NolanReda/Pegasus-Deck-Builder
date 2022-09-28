@@ -20,40 +20,40 @@
 
 </head>
 <body>
-  <header class="row">
+  <header class="rows">
     <div class="header-l column-half">
-      <div class="row align-center">
+      <div class="rows align-center">
         <img class="logo white" src="images/pegasus title white.png" alt="pegasus-deck-builder-logo">
         <button id="nav-decks" class="nav-button" type="button">Decks</button>
         <button id="nav-card-search" class="nav-button" type="button">Card Search</button>
       </div>
     </div>
     <div class="header-r column-half">
-      <div class="row justify-end">
+      <div class="rows justify-end">
         <img class="logo eye" src="images/pegasus logo sym.png" alt="pegasus-symbol">
       </div>
     </div>
   </header>
   <main class="container">
-    <div class="background row">
+    <div class="background rows">
       <img class="background-logo" src="images/pegasus-logo-full.png" alt="background-logo">
     </div><!--end of header-->
     <div class="view" data-view="search">
-      <div class="row search justify-center">
-        <div class="row">
+      <div class="rows search justify-center">
+        <div class="rows">
           <form id="search-form" class="search-form">
             <input id="search-bar" class="search-bar" type="search" required>
             <button id="search-button" class="search-button" type="button">Search</button>
           </form>
         </div>
-        <div id="search-results" class="row result-list"></div>
+        <div id="search-results" class="rows result-list"></div>
         <div class="modal-div">
           <dialog id="modal">
             <form id="confirm-add" method="dialog" class="modal-form">
-              <div class="row justify-center">
+              <div class="rows justify-center">
                 <p>Card Added</p>
               </div>
-              <div class="row justify-center">
+              <div class="rows justify-center">
                 <input class="ok" type="button" value="OK">
               </div>
             </form>
@@ -62,40 +62,40 @@
       </div>
     </div><!--end of search view-->
     <div class="hidden" data-view="details">
-      <div id="return-row" class="row justify-end return">
+      <div id="return-rows" class="rows justify-end return">
         <button id="return-button" class="return-button" type="button">Return</button>
       </div>
-      <div class="row detail">
+      <div class="rows detail">
         <div class="column-third">
           <img class="detail-img" src="" alt="">
         </div>
         <div class="column-two-thirds">
-          <div class="row tb">
+          <div class="rows tb">
             <div class="top-box">
               <h2 id="card-name"></h2>
               <h3 id="card-type"></h3>
               <p id="card-desc"></p>
             </div>
           </div>
-          <div class="row">
+          <div class="rows">
             <div class="column-full bottom-box">
-              <div class="row">
+              <div class="rows">
                 <div class="column-half prices">
-                  <div class="row price-row">
+                  <div class="rows price-rows">
                     <a id="amazon" href=""></a>
                   </div>
-                  <div class="row price-row">
+                  <div class="rows price-rows">
                     <a id="card-market" href=""></a>
                   </div>
-                  <div class="row price-row">
+                  <div class="rows price-rows">
                     <a id="coolstuff" href=""></a>
                   </div>
                 </div>
                 <div class="column-half prices">
-                  <div class="row price-row">
+                  <div class="rows price-rows">
                     <a id="ebay" href=""></a>
                   </div>
-                  <div class="row price-row">
+                  <div class="rows price-rows">
                     <a id="tcgplayer" href=""></a>
                   </div>
                 </div>
@@ -106,27 +106,27 @@
       </div>
     </div><!--end of detail view-->
     <div class="hidden" data-view="decks">
-      <div class="row decks-head">
+      <div class="rows decks-head">
         <div class="column-half">
-          <div class="row">
+          <div class="rows">
             <h1 class="marg-l-25">Decks</h1>
           </div>
         </div>
         <div class="column-half">
-          <div class="row justify-end height100">
+          <div class="rows justify-end height100">
             <button id="new-deck" class="new-deck" type="button">New Deck +</button>
           </div>
         </div>
       </div>
-      <div id="deck-rows" class="row decks-list"></div>
+      <div id="deck-rowss" class="rows decks-list"></div>
     </div><!--end of decks view-->
     <div class="hidden" data-view="new-deck">
-      <div class="row new-deck-h1">
+      <div class="rows new-deck-h1">
         <h1 class="marg-l-25">New Deck</h1>
       </div>
-      <div class="row new-deck-input">
+      <div class="rows new-deck-input">
         <div class="column-full">
-          <div class="row">
+          <div class="rows">
             <label class="marg-l-25" for="deck-name">Deck Name</label>
           </div>
         </div>
@@ -135,24 +135,24 @@
       </div>
     </div><!--end of new deck view-->
     <div class="hidden" data-view="deck-display">
-      <div class="row deck-title">
+      <div class="rows deck-title">
         <div class="column-half">
           <h1 id="deck-name-h1" class="marg-l-25">Deck Name</h1>
         </div>
         <div class="column-half">
-          <div class="row justify-end">
+          <div class="rows justify-end">
             <button id="return-to-decks-button" class="return-to-deck-button" type="button">Return</button>
           </div>
         </div>
       </div>
-      <div id="deck-display" class="row deck-display"></div>
+      <div id="deck-display" class="rows deck-display"></div>
     </div><!--end of deck-contents-->
     <dialog id="delete-modal">
       <form id="delete-form" method="dialog" class="delete-form">
-        <div class="row">
+        <div class="rows">
           <p>Are you sure you want to delete this card?</p>
         </div>
-        <div class="row conf-canc">
+        <div class="rows conf-canc">
           <button id="confirm" class="delete-button" type="button">Confirm</button>
           <button id="no" class="no" type="button">Cancel</button>
         </div>
