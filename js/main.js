@@ -15,8 +15,13 @@ function searchResults(event) {
   xhr.addEventListener('load', function () {
     $response = xhr.response;
     if (xhr.status === 400) {
+      if ($searchResults.childElementCount === 1) {
+        var $noResult = document.querySelector('#no-result');
+        $searchResults.removeChild($noResult);
+      }
       var noResult = document.createElement('div');
       noResult.setAttribute('class', 'row none');
+      noResult.setAttribute('id', 'no-result');
       var h1 = document.createElement('h1');
       h1.setAttribute('class', 'no-result-found');
       var nothing = document.createTextNode('No Results Found');
@@ -25,8 +30,13 @@ function searchResults(event) {
       $resultList.appendChild(noResult);
     }
     if (!$searchBar.value) {
+      if ($searchResults.childElementCount === 1) {
+        var $nothing = document.querySelector('#none');
+        $searchResults.removeChild($nothing);
+      }
       var noSearch = document.createElement('div');
       noSearch.setAttribute('class', 'row none');
+      noSearch.setAttribute('id', 'none');
       var h1i = document.createElement('h1');
       h1i.setAttribute('class', 'no-result-found');
       var nothing1 = document.createTextNode('Please search a valid card');
@@ -36,6 +46,10 @@ function searchResults(event) {
       return;
     }
     if (xhr.status === 200) {
+      if ($searchResults.childElementCount > 1) {
+        var $cards = document.querySelectorAll('.card-wrapper');
+        $searchResults.removeChild($cards);
+      }
       for (let i = 0; i < this.response.data[0].card_images.length; i++) {
         var div = document.createElement('div');
         div.setAttribute('class', 'column-fourth card-wrapper');
@@ -75,6 +89,7 @@ function searchResults(event) {
 
 $searchForm.addEventListener('submit', searchResults);
 $searchButton.addEventListener('click', searchResults);
+$searchForm.addEventListener('submit', searchResults);
 
 var $dataView = document.querySelectorAll('[data-view]');
 var $returnButton = document.querySelector('#return-button');
@@ -182,15 +197,18 @@ $searchResults.addEventListener('click', addCard);
 
 var $modal = document.querySelector('#modal');
 var $ok = document.querySelector('.ok');
+// var $select = document.querySelector('#deck-delect');
 
 function open(event) {
   if (event.target.parentElement.children[2].value === 'select') {
     return;
   }
   if (event.target.getAttribute('id') === 'add-button') {
+
     $modal.showModal();
   }
 }
+
 $searchResults.addEventListener('click', open);
 function close(event) {
   $modal.close();
@@ -199,8 +217,12 @@ $ok.addEventListener('click', close);
 
 var $deckName = document.querySelector('#deck-name');
 var $newDeck = document.querySelector('#new-deck');
+var $deckInput = document.querySelector('.new-deck-input');
 
 function newDeckView(event) {
+  if ($deckInput.childElementCount === 4) {
+    $deckInput.removeChild($deckInput.lastChild);
+  }
   $deckName.value = '';
   viewSwap('new-deck');
 }
@@ -221,14 +243,19 @@ function createNewDeck(event) {
 $createDeck.addEventListener('click', createNewDeck);
 
 var $deckRows = document.querySelector('#deck-rows');
-var $deckInput = document.querySelector('.new-deck-input');
 
 function loadDecks(event) {
   if (event.type === 'click' && $deckName.value === '') {
+    if ($deckInput.childElementCount === 4) {
+      var $no = document.querySelector('#no-deck');
+      $deckInput.removeChild($no);
+    }
     var fail = document.createElement('div');
     fail.setAttribute('class', 'row none');
+    fail.setAttribute('id', 'no-deck');
     var noDeck = document.createElement('h4');
     noDeck.setAttribute('class', 'no-result-found');
+
     var nothing = document.createTextNode('Please enter a deck name');
     noDeck.appendChild(nothing);
     fail.appendChild(noDeck);

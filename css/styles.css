@@ -180,12 +180,12 @@ a {
 }
 
 .add-button {
-  border-radius: 6px;
   width: 105px;
   padding: 0;
   margin-right: 1px;
   border: red 1px solid;
-  background-color: rgb(255, 254, 254);
+  border-radius: 6px;
+  background-color: rgba(255, 255, 255);
 }
 
 #modal {
